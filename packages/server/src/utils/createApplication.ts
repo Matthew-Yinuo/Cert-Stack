@@ -1,22 +1,17 @@
 import * as express from "express";
 import * as session from "express-session";
 
-import * as Redis from "ioredis";
 import * as connectRedis from "connect-redis";
-import { redisSessionPrefix } from "../constants";
+
+import { redisSessionPrefix } from "../constant";
+import { redis } from "../redis";
+import { confirmEmail } from "../routes/confirmEmail";
+
 const RedisStore = connectRedis(session as any);
-const redis = (() => {
-  const r =
-    process.env.NODE_ENV === "production"
-      ? new Redis("redis://redis_server:6379")
-      : new Redis();
-  r.on("connect", () => console.log("Redis is connected."));
-  r.on("error", () => console.log("Redis connection unsuccessful."));
-  return r;
-})();
 
 const createApplication = (): express.Application => {
   const app = express();
+
   app.use(
     session({
       store: new RedisStore({
@@ -24,7 +19,7 @@ const createApplication = (): express.Application => {
         prefix: redisSessionPrefix
       }),
       name: "qid",
-      secret: "asqetbbnqqqhuysf",
+      secret: "asdjlfkaasdfkjlads",
       resave: false,
       saveUninitialized: false,
       cookie: {
@@ -34,6 +29,10 @@ const createApplication = (): express.Application => {
       }
     })
   );
+
+  app.get("/confirm/:id", confirmEmail);
+
   return app;
 };
+
 export { createApplication };

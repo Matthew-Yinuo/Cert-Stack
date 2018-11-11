@@ -1,6 +1,6 @@
 import { IResolver } from "../../../types/graphql-utils";
 import { Credential } from "../../../entity/Credentials";
-import { isAuthenticated } from "../../shared/isAuthenticated";
+import { isAuthenticated } from "../../user/shared/isAuthenticated";
 export const resolvers: IResolver = {
   Mutation: {
     createCredential: async (
