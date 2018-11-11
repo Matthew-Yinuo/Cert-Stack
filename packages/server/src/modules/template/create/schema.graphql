@@ -1,0 +1,7 @@
+input CreateTemplateInput {
+  course: String!
+  organization: String!
+}
+type Mutation {
+  createTemplate(input: CreateTemplateInput!): Boolean!
+}
