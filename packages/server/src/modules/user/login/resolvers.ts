@@ -2,7 +2,7 @@ import * as bcrypt from "bcryptjs";
 
 import { User } from "../../../entity/User";
 import { IResolver } from "../../../types/graphql-utils";
-import { invalidLogin } from "./errorMessages";
+import { invalidLogin, confirmEmailError } from "./errorMessages";
 import { GQL } from "../../../types/schema";
 
 const errorResponse = [
@@ -25,16 +25,16 @@ export const resolvers: IResolver = {
         return { errors: errorResponse };
       }
 
-      // if (!user.confirmed) {
-      //   return {
-      //     errors: [
-      //       {
-      //         path: "email",
-      //         message: confirmEmailError
-      //       }
-      //     ]
-      //   };
-      // }
+      if (!user.confirmed) {
+        return {
+          errors: [
+            {
+              path: "email",
+              message: confirmEmailError
+            }
+          ]
+        };
+      }
 
       const valid = await bcrypt.compare(password, user.password);
 
