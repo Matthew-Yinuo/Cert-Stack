@@ -1,9 +1,12 @@
+import * as express from "express";
+
 export interface ISession extends Express.Session {
   userId?: string;
 }
 
 export interface IContext {
-  req: Express.Request;
+  req: express.Request;
+  res: express.Response;
   session: ISession;
 }
 
@@ -18,4 +21,3 @@ export interface IResolver {
   [key: string]: {
     [key: string]: Resolver | { [key: string]: Resolver };
   };
-}

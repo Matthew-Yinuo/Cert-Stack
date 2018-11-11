@@ -1,32 +1,23 @@
-import * as express from "express";
 import { ApolloServer } from "apollo-server-express";
-import * as session from "express-session";
 
 import { genSchema } from "./utils/genSchema";
 import { createConnection } from "./utils/createConnection";
+import { createApplication } from "./utils/createApplication";
 
 export const startServer = async () => {
   await createConnection();
+  const app = createApplication();
 
   const schema = genSchema() as any;
 
   const server = new ApolloServer({
     schema,
-    context: ({ req }: any) => ({
+    context: ({ req, res }: any) => ({
       req,
+      res,
       session: req ? req.session : undefined
     })
   });
-
-  const app = express();
-
-  app.use(
-    session({
-      secret: "asdjlfkaasdfkjlads",
-      resave: false,
-      saveUninitialized: false
-    })
-  );
 
   server.applyMiddleware({ app }); // app is from an existing express app
 
