@@ -1,0 +1,7 @@
+input CreateGroupInput {
+  course: String!
+  organization: String!
+}
+type Mutation {
+  createGroup(input: CreateGroupInput!): Boolean!
+}

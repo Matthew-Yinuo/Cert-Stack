@@ -1,15 +1,15 @@
 import { IResolver } from "../../../types/graphql-utils";
-import { Template } from "../../../entity/Template";
+import { Group } from "../../../entity/Groups";
 import { isAuthenticated } from "../../user/shared/isAuthenticated";
 export const resolvers: IResolver = {
   Mutation: {
-    createTemplate: async (
+    createGroup: async (
       _,
       { input: { course, organization } },
       { session }
     ) => {
       isAuthenticated(session);
-      await Template.create({
+      await Group.create({
         course,
         organization,
         userId: session.userId
