@@ -1,8 +1,7 @@
 import * as React from "react";
-import Router from "next/router";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-
+import { Router } from "../../routes";
 import { RegisterMutation, RegisterMutationVariables } from "../../schemaTypes";
 
 const registerMutation = gql`
@@ -67,7 +66,7 @@ class RegisterView extends React.PureComponent {
                     variables: this.state
                   });
                   console.log(response);
-                  Router.push("/login");
+                  Router.pushRoute("login");
                 }}
               >
                 register
