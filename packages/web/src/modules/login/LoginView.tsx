@@ -1,8 +1,8 @@
 import * as React from "react";
-import Router from "next/router";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { LoginMutation, LoginMutationVariables } from "../../schemaTypes";
+import { Router } from "../../routes";
 
 const loginMutation = gql`
   mutation LoginMutation($email: String!, $password: String!) {
@@ -66,7 +66,7 @@ export class LoginView extends React.PureComponent {
                     variables: this.state
                   });
                   console.log(response);
-                  Router.push("/me");
+                  Router.pushRoute("me");
                 }}
               >
                 login
