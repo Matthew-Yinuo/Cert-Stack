@@ -1,0 +1,8 @@
+type Group {
+  _id: ID!
+  course: String!
+  organization: String!
+}
+type Query {
+  findGroups: [Group!]!
+}
