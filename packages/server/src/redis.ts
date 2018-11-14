@@ -1,4 +1,5 @@
 import * as Redis from "ioredis";
+
 const redis = (() => {
   const r =
     process.env.NODE_ENV === "production"
@@ -8,4 +9,5 @@ const redis = (() => {
   r.on("error", () => console.log("Redis connection unsuccessful."));
   return r;
 })();
+
 export { redis };

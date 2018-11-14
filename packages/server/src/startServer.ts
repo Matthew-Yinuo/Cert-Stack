@@ -1,11 +1,11 @@
 import { createConnection } from "./utils/createConnection";
-import { createApplication } from "./utils/createApplication";
+import { createApp } from "./utils/createApp";
 import { createApolloServer } from "./utils/createApolloServer";
 
 export const startServer = async (): Promise<void> => {
   await createConnection();
 
-  const app = createApplication();
+  const app = createApp();
   const server = createApolloServer(app);
 
   app.listen({ port: 4000 }, () =>

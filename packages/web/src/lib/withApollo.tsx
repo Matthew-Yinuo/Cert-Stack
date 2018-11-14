@@ -5,7 +5,7 @@ import { getDataFromTree } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { NormalizedCacheObject } from "apollo-cache-inmemory";
 
-import startApollo from "./startApollo";
+import initApollo from "./initApollo";
 import { getCookie } from "./getCookie";
 
 // TODO: fix this
@@ -23,7 +23,12 @@ export default (NextApp: NextComponentClass<any>) => {
         ctx: { res, req }
       } = context;
 
-      const apollo = startApollo({}, { getToken: () => getCookie(req) });
+      const apollo = initApollo(
+        {},
+        {
+          getToken: () => getCookie(req)
+        }
+      );
 
       context.ctx.apolloClient = apollo;
 
@@ -75,7 +80,7 @@ export default (NextApp: NextComponentClass<any>) => {
       super(props);
       // `getDataFromTree` renders the component first, the client is passed off as a property.
       // After that rendering is done using Next's normal rendering pipeline
-      this.apolloClient = startApollo(props.apolloState, {
+      this.apolloClient = initApollo(props.apolloState, {
         getToken: () => getCookie()
       });
     }

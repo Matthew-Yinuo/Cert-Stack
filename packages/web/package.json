@@ -3,21 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "main": "src/index.js",
+  "author": "Max Li <ml@maxlivinci.com> (https://maxlivinci.com/)",
   "license": "MIT",
   "scripts": {
-    "devPrep": "SET NODE_ENV=development ",
     "dev": "nodemon src/index.ts",
-    "build": "next build",
-    "start": "next start"
+    "build": "",
+    "start": "",
+    "schema:download": "apollo schema:download --endpoint=http://localhost:4000/graphql",
+    "codegen:generate": "apollo codegen:generate --queries=./src/**/*.tsx --schema=./schema.json --outputFlat --target=typescript ./src/schemaTypes.ts",
+    "gen:types": "npm run schema:download && npm run codegen:generate"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.2.10",
     "apollo-client": "^2.4.2",
     "apollo-link-context": "^1.0.9",
     "apollo-link-http": "^1.5.5",
+    "express": "^4.16.3",
     "graphql": "^14.0.2",
     "isomorphic-unfetch": "^3.0.0",
-    "next": "^7.0.2",
+    "next": "^7.0.1",
     "next-routes": "^1.4.2",
     "react": "^16.5.2",
     "react-apollo": "^2.2.4",
@@ -25,6 +29,7 @@
     "ts-node": "^7.0.1"
   },
   "devDependencies": {
+    "@types/express": "^4.16.0",
     "@types/graphql": "^14.0.1",
     "@types/next": "^7.0.0",
     "@types/react": "^16.4.14",

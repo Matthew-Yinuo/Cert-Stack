@@ -1,6 +1,6 @@
 {
   "watch": ["src/**/*.ts"],
   "execMap": {
-    "ts": "ts-node --typeCheck --compilerOptions '{\"module\":\"commonjs\"}'"
+    "ts": "ts-node --compilerOptions {\"\"\"module\"\"\":\"\"\"commonjs\"\"\"}"
   }
 }
