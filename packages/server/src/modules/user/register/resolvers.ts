@@ -3,7 +3,7 @@ import { User } from "../../../entity/User";
 import { duplicateEmail } from "./errorMessages";
 import { GQL } from "../../../types/schema";
 import { sendEmail } from "../../../utils/sendEmail";
-import { createConfirmEmailLink } from "./ConfirmEmailLink";
+import { createConfirmEmailLink } from "./createConfirmEmailLink";
 
 export const resolvers: IResolver = {
   Mutation: {
@@ -17,15 +17,25 @@ export const resolvers: IResolver = {
       const userAlreadyExists = await User.findOne({ email });
 
       if (userAlreadyExists) {
-        return [{ path: "email", message: duplicateEmail }];
+        return [
+          {
+            path: "email",
+            message: duplicateEmail
+          }
+        ];
       }
 
-      const user = await User.create({ email, password });
+      const user = await User.create({
+        email,
+        password
+      });
+
       const url = await createConfirmEmailLink({
         serverURL,
         userId: user._id,
         redis
       });
+
       await sendEmail({
         recipient: email,
         subject: "Accredible - Verify your email address",
@@ -35,6 +45,7 @@ export const resolvers: IResolver = {
         </body>
         </html>`
       });
+
       return null;
     }
   }

@@ -28,6 +28,12 @@ export class FindGroupsView extends React.PureComponent {
                   <div>
                     <div>{group.course}</div>
                     <div>{group.organization}</div>
+                    <Link route={`/credentials?group=${group._id}`}>
+                      Credentials List
+                    </Link>
+                    <Link route={`/createCredentials?group=${group._id}`}>
+                      Create Credentials
+                    </Link>
                   </div>
                 </Link>
               ))}

@@ -22,29 +22,27 @@ export const resolvers: IResolver = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        return { errors: errorResponse };
+        return errorResponse;
       }
 
       if (!user.confirmed) {
-        return {
-          errors: [
-            {
-              path: "email",
-              message: confirmEmailError
-            }
-          ]
-        };
+        return [
+          {
+            path: "email",
+            message: confirmEmailError
+          }
+        ];
       }
 
       const valid = await bcrypt.compare(password, user.password);
 
       if (!valid) {
-        return { errors: errorResponse };
+        return errorResponse;
       }
 
       (req.session as any).userId = user._id;
 
-      return {};
+      return null;
     }
   }
 };

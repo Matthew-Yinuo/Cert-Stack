@@ -18,7 +18,13 @@ const createApolloServer = (app: express.Application): ApolloServer => {
     })
   });
 
-  server.applyMiddleware({ app }); // app is from an existing express app
+  server.applyMiddleware({
+    app,
+    cors: {
+      credentials: true,
+      origin: process.env.FRONTEND_HOST
+    }
+  });
 
   return server;
 };
