@@ -52,4 +52,4 @@ yarn install
 4. Website and App create cert
 5. Website and App view cert
 6. Website publish cert
-7. logout
+7. Logout
